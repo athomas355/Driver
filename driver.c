@@ -22,11 +22,10 @@ struct cli_struct parse_args(int argc, char* argv[]) {
         switch(option) {
             case 'h':
                 printf("driver [-h] [-t sec] [logfile]\n\t-h: help (usage) message\n\t-t: messages are printed at specfic intervals");
-                break;
+                exit(0);
             case 't':
                 cli_args.t = true;
                 cli_args.sec = atoi(optarg);
-                printf("Hello, I am option t");
                 break;
             case '?':
                 printf("Unknown option: %s\n", optarg);
@@ -45,26 +44,32 @@ int main(int argc, char* argv[]) {
     
     //parse arguments
     struct cli_struct args = parse_args(argc, argv);
-
-    //cli_args test
-    //printf("-t = %d, sec = %d, logfile = %s\n",args.t, args.sec, args.logfile);
     
-    
-    // time_t seconds;
-    // struct tm *timeStruct;
+    int randomTime = 0;
 
-    // seconds = time(NULL);
+    //if option -t is used
+    if(args.t == true) { randomTime = rand() % (2 * args.sec); } 
+       
+    addmsg('I', "I love Soccer.");
+    sleep(randomTime);
+    addmsg('W', "Watch Out!");
+    sleep(randomTime);
+    addmsg('E', "This was a mistake.");
+    sleep(randomTime);
 
-    // timeStruct = localtime(&seconds);
+    savelog("messages.log");
 
-    // printf("Current time : %d:%d:%d\n", timeStruct->tm_hour, timeStruct->tm_min, timeStruct->tm_sec);
+    getlog();
+
+    clearlog();
 
     addmsg('I', "I love Soccer.");
-    // addmsg('W', "Watch Out!");
-    // addmsg('E', "This was a mistake.");
-    // addmsg('F', "This is fatal.");
-
-
+    sleep(randomTime);
+    addmsg('W', "Watch Out!");
+    sleep(randomTime);
+    addmsg('E', "This was a mistake.");
+    sleep(randomTime);
+    addmsg('F', "This is fatal.");
 
     
     return 0;

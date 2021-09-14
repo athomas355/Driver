@@ -12,6 +12,7 @@ typedef struct data_struct {
 
 } data_t;
 
+void printList();
 int addmsg(const char type, const char* msg);
 void clearlog();
 char* getlog();
